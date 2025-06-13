@@ -1,97 +1,141 @@
-🧩 Batch Testing Utility – Application Specification
-📌 Purpose
-A Python-based desktop application to perform batch testing across three test modules. It allows selection of folders containing structured data and outputs results with logs and summaries. Designed for non-technical users, the application will be packaged as a standalone .exe file.
+🛠️ Software Specification Document: AutoDrawing Autotest Tool
+📌 Objective
+To develop a Python-based executable application capable of processing a large number of CAD files for automated testing of drawing-related modules like Data Extraction, JSON output generation, and Auto Drawing Creation. The tool should feature a user-friendly UI and support modular, extensible design principles.
 
-💻 Platform Requirements
-Developed in Python
+✅ Functional Requirements
+1. Executable Packaging
+The application must be packaged as a standalone .exe using a tool like PyInstaller.
 
-Must be packaged into a Windows-compatible .exe
+2. UI Inputs
+CAD Files: File selector for one or more CAD input files.
 
-Using PyInstaller or cx_Freeze
+Input Folder: Directory selector to choose folder with files for batch processing.
 
-Should not require Python pre-installed on the user’s system
+Output Folder: Directory selector for saving output results.
 
-All dependencies must be bundled
+3. Module Selection
+Checkbox interface to enable or disable the following modules:
 
-📂 Folder Structure & Data Flow
-Input Folder (global at the top):
+✅ Data Extraction
 
-Selected once before any run.
+✅ Input & Output JSON
 
-Contains structured subfolders with batch files.
+✅ Output JSON (Windows)
 
-Used for comparison and validation across all modules.
+✅ Output JSON (Linux)
 
-Output Folder:
+✅ Auto Drawing Creation
 
-Selected by the user.
+4. Execution and Status Tracking
+A “RUN” button to initiate processing.
 
-Will mirror the input folder’s subfolder structure.
+Display runtime status:
 
-All generated outputs (Excel, logs, visualizations, etc.) are stored here.
+Currently executing module
 
-Will serve as the input for the next stage run (multi-stage chaining supported).
+Name of file currently being processed
 
-A button is provided to directly open the Output Folder in the system file explorer.
+Number of files processed (e.g., “20 of 50 completed”)
 
-🧪 Module-wise Batch Testing
-Each module consists of:
+Number of failed files (e.g., “3 tests failed”)
 
-A label indicating the module name:
+Support pause and cancel functionality during execution.
 
-Test Data Extraction
+5. Threading
+All backend processing must be performed in a separate thread to keep the UI responsive.
 
-Test JSON Output (Windows DLL)
+6. Progress Logging
+A detailed log panel should display:
 
-Test JSON Output (Linux DLL)
+Start and end of each module
 
-Test Automatic Drawing
+Success or failure messages per file, including:
 
-A "Browse" button to select the folder containing input data (for the specific module).
+Filename
 
-A "Run" button to trigger the test for that module only.
+Status: success or failure
 
-All modules process multiple files in batch, operating recursively over the selected subfolders.
+Error message (if any)
 
-▶️ Run All Button
-Executes all selected modules in order.
+7. Log Export
+A button labeled “Export to a log file” must:
 
-Skips modules where folders are not selected.
+Export the full contents of the detailed log panel to a .txt file.
 
-Applies input/output structure rules consistently.
+Allow the user to choose the location to save the file.
 
-📊 Run Status Panel
-Displays live, detailed feedback during testing:
+Ensure the format is human-readable (plain text).
 
-✅ Current Module Name in progress
+🎨 UI/UX Requirements
+1. Aesthetics
+Keep the UI subtle but not boring.
 
-📄 Currently Processed File Name
+Use colorful elements to enhance user experience (e.g., progress bar animation).
 
-📈 Progress Status (e.g., "23 of 100 files processed")
+2. Tooltips and Help
+Provide tooltips on all UI elements to explain their function.
 
-❌ Failure Summary (e.g., "3 failed out of 23")
+Add information (i) icons/buttons where deeper context is helpful.
 
-📄 Summary and Logs
-At the end of the run:
+3. Progress Bar Enhancements
+Add fun visual elements (e.g., animated bar, icons) to make long-running operations engaging.
 
-A short summary is shown in the UI
+🔄 Non-Functional Requirements
+Scalability: Should efficiently handle large number of files.
 
-A detailed summary log is written to a file in the Output Folder (CSV or TXT)
+Modularity: Codebase should be cleanly modular, with each module's logic separated.
 
-Log includes file names, module names, success/failure flags, failure reasons
+Maintainability:
 
-📤 Outputs
-Module-specific results (e.g., generated Excel, JSON diffs, visualizations)
+Follow Python coding standards (PEP 8).
 
-A detailed run summary file
+Add code comments and docstrings for clarity.
 
-All files are stored in the Output Folder, maintaining the same subfolder structure as the Input Folder
+Keep code structure simple, readable, and extensible.
 
-📎 Additional Requirements
-Application should be robust to missing or malformed files
+Documentation:
 
-Logs all exceptions with tracebacks where needed
+Maintain specification.md with updates per code change.
 
-UI should remain responsive during long runs (consider background threads)
+Create and maintain a TODO.txt file listing pending tasks for each module.
 
-Optionally add timestamps to all logs and output folders
+📁 Folder & File Guidelines
+Maintain the following files:
+
+specification.md – Project specifications and version notes.
+
+TODO.txt – Detailed pending items and next steps.
+
+log.txt – Exported logs of execution runs.
+
+🧩 Code Scaffold
+Implement initial placeholder or mock functionality for each of the following modules:
+
+Data Extraction
+
+Input & Output JSON
+
+Output JSON (Windows)
+
+Output JSON (Linux)
+
+Auto Drawing Creation
+
+Provide a way to easily integrate real logic in place of placeholders later.
+
+🚀 Deliverables
+Standalone .exe for Windows
+
+Full source code with:
+
+main.py – Entry point
+
+ui.py – UI logic (Tkinter or PyQt recommended)
+
+logger.py – Logging and export
+
+modules/ – Folder with individual module logic
+
+utils/ – Folder with helper utilities
+
+Documentation files as mentioned above
